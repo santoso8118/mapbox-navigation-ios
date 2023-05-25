@@ -16,6 +16,7 @@ let CarPlayAlternativeIDKey: String = "MBCarPlayAlternativeID"
 @available(iOS 12.0, *)
 open class CarPlayNavigationViewController: UIViewController, BuildingHighlighting {
     
+    
     // MARK: Child Views and Styling Configuration
     
     /**
@@ -860,7 +861,8 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
     
     @objc func didUpdateRoadNameFromStatus(_ notification: Notification) {
         let roadNameFromStatus = notification.userInfo?[RouteController.NotificationUserInfoKey.roadNameKey] as? String
-        if let roadName = roadNameFromStatus?.nonEmptyString {
+        let latinName = roadNameFromStatus?.latinString()
+        if let roadName = latinName?.nonEmptyString {
             let representation = notification.userInfo?[RouteController.NotificationUserInfoKey.routeShieldRepresentationKey] as? VisualInstruction.Component.ImageRepresentation
             wayNameView.label.updateRoad(roadName: roadName, representation: representation, idiom: .carPlay)
             wayNameView.containerView.isHidden = false

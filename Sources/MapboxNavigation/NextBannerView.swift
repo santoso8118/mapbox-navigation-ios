@@ -94,7 +94,7 @@ open class NextBannerView: UIView, NavigationComponent {
         maneuverView.isEnd = true
         let component = VisualInstruction.Component.text(text: .init(text: "Next step", abbreviation: nil, abbreviationPriority: nil))
         let instruction = VisualInstruction(text: nil, maneuverType: .turn, maneuverDirection: .right, components: [component])
-        instructionLabel.instruction = instruction
+        instructionLabel.instruction = fixVisualInstruction(instruction)
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -183,7 +183,7 @@ open class NextBannerView: UIView, NavigationComponent {
         
         maneuverView.visualInstruction = tertiaryInstruction
         maneuverView.drivingSide = visualInstruction?.drivingSide ?? .right
-        instructionLabel.instruction = tertiaryInstruction
+        instructionLabel.instruction = fixVisualInstruction(tertiaryInstruction) 
         show(animated: animated,
              duration: duration) { completed in
             completion?(completed)

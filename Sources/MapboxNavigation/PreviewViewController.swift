@@ -212,7 +212,8 @@ public class PreviewViewController: UIViewController {
         
         // Update current road name. In case if road name is not available `WayNameView` is hidden.
         let roadNameFromStatus = notification.userInfo?[PassiveLocationManager.NotificationUserInfoKey.roadNameKey] as? String
-        if let roadName = roadNameFromStatus?.nonEmptyString {
+        let latinName = roadNameFromStatus?.latinString()
+        if let roadName = latinName?.nonEmptyString {
             let representation = notification.userInfo?[PassiveLocationManager.NotificationUserInfoKey.routeShieldRepresentationKey] as? VisualInstruction.Component.ImageRepresentation
             navigationView.wayNameView.label.updateRoad(roadName: roadName, representation: representation)
             navigationView.wayNameView.containerView.isHidden = false

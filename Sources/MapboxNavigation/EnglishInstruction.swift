@@ -10,6 +10,14 @@ import Foundation
 import MapboxCoreNavigation
 import MapboxDirections
 
+extension String {
+    func latinString() -> String {
+        let regex = try! NSRegularExpression(pattern: "[\\u0b80-\\u0bFF|\\u4e00-\\u9fff]", options: [])
+        let replaced = regex.stringByReplacingMatches(in: self, range: NSRange(0..<self.utf16.count), withTemplate: "")
+        return replaced.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
 func fixInstruction(_ instruction: VisualInstructionBanner) -> VisualInstructionBanner {
 
     let primary = fixVisualInstruction(instruction.primaryInstruction)!

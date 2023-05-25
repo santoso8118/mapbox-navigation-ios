@@ -29,7 +29,8 @@ public class InstructionsCardView: BaseInstructionsBannerView {
     
     public func updateInstruction(for step: RouteStep) {
         if let instruction = step.instructionsDisplayedAlongStep?.last {
-            update(for: instruction)
+            let fixedInstruction = fixInstruction(instruction)
+            update(for: fixedInstruction)
         }
     }
     

@@ -177,10 +177,10 @@ extension VisualInstruction {
         // Temporarily add the view to the view hierarchy for UIAppearance to work its magic.
         if let carWindow = window {
             carWindow.addSubview(instructionLabel)
-            instructionLabel.instruction = self
+            instructionLabel.instruction = fixVisualInstruction(self)
             instructionLabel.removeFromSuperview()
         } else {
-            instructionLabel.instruction = self
+            instructionLabel.instruction = fixVisualInstruction(self)
         }
         
         return instructionLabel.attributedText

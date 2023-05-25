@@ -385,11 +385,13 @@ extension TopBannerViewController: NavigationComponent {
     }
     
     public func navigationService(_ service: NavigationService, didPassVisualInstructionPoint instruction: VisualInstructionBanner, routeProgress: RouteProgress) {
-        currentInstruction = instruction
-        instructionsBannerView.update(for: instruction)
-        nextBannerView.navigationService(service, didPassVisualInstructionPoint: instruction, routeProgress: routeProgress)
-        junctionView.update(for: instruction, service: service)
-        lanesView.update(for: instruction)
+        
+        let fixedInstruction = fixInstruction(instruction)
+        currentInstruction = fixedInstruction
+        instructionsBannerView.update(for: fixedInstruction)
+        nextBannerView.navigationService(service, didPassVisualInstructionPoint: fixedInstruction, routeProgress: routeProgress)
+        junctionView.update(for: fixedInstruction, service: service)
+        lanesView.update(for: fixedInstruction)
     }
     
     public func navigationService(_ service: NavigationService, willRerouteFrom location: CLLocation) {
@@ -406,6 +408,54 @@ extension TopBannerViewController: NavigationComponent {
     public func navigationService(_ service: NavigationService, didSwitchToCoincidentOnlineRoute coincideRoute: Route) {
         handleReroute(service, proactive: false)
     }
+    
+    private func fixInstruction(_ instruction: VisualInstructionBanner) -> VisualInstructionBanner {
+
+        let primary = fixVisualInstruction(instruction.primaryInstruction)!
+        let secondary = fixVisualInstruction(instruction.secondaryInstruction)
+        let tertiary = fixVisualInstruction(instruction.tertiaryInstruction)
+        let quaternary = fixVisualInstruction(instruction.quaternaryInstruction)
+        
+        let resultInstructionBanner = VisualInstructionBanner(distanceAlongStep: instruction.distanceAlongStep, primary: primary, secondary: secondary, tertiary: tertiary, quaternary: quaternary, drivingSide: instruction.drivingSide)
+        return resultInstructionBanner
+    }
+    
+    private func fixVisualInstruction(_ original: VisualInstruction?) -> VisualInstruction? {
+        
+        if let instruction = original {
+            //  filter all latin components
+            let latinComponents = instruction.components.filter { component in
+                switch component {
+                case .text(text: let value):
+                    if value.text == "/" {
+                        return false
+                    }
+                    if !value.text.isEmpty {
+                        let hasSpecialCharacter = temp.containsChineseOrTamil()
+                        return !hasSpecialCharacter
+                    } else {
+                        return true
+                    }
+                default:
+                    return true
+                }
+            }
+            var text = original?.text
+            if let firstComponent = latinComponents.first {
+                switch firstComponent {
+                case .text(text: let value):
+                    text = value.text
+                default:
+                    break
+                }
+            }
+            
+            let result = VisualInstruction(text: text, maneuverType: instruction.maneuverType, maneuverDirection: instruction.maneuverDirection, components: latinComponents)
+            return result
+        }
+        return nil
+    }
+
     
     private func handleReroute(_ service: NavigationService, proactive: Bool) {
         instructionsBannerView.updateDistance(for: service.routeProgress.currentLegProgress.currentStepProgress)

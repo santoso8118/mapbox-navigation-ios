@@ -431,7 +431,7 @@ extension TopBannerViewController: NavigationComponent {
                         return false
                     }
                     if !value.text.isEmpty {
-                        let hasSpecialCharacter = temp.containsChineseOrTamil()
+                        let hasSpecialCharacter = value.text.containsChineseOrTamil()
                         return !hasSpecialCharacter
                     } else {
                         return true

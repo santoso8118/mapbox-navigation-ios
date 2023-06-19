@@ -25,7 +25,7 @@ public class TurnByTurnInstructionsVC: UIViewController {
     weak var delegate: TurnByTurnInstructionsVCDelegate?
     
     let cellId = "StepTableViewCellId"
-    var routeProgress: RouteProgress!
+    var routeProgress: RouteProgress?
 
     typealias StepSection = [RouteStep]
     var sections = [StepSection]()
@@ -46,6 +46,9 @@ public class TurnByTurnInstructionsVC: UIViewController {
     
     @discardableResult
     func rebuildDataSourceIfNecessary() -> Bool {
+        
+        guard let routeProgress = self.routeProgress else {return false}
+        
         let legIndex = routeProgress.legIndex
         let stepIndex = routeProgress.currentLegProgress.stepIndex
         let didProcessCurrentStep = previousLegIndex == legIndex && previousStepIndex == stepIndex
@@ -176,6 +179,7 @@ extension TurnByTurnInstructionsVC: UITableViewDelegate {
             }
         }
         
+        guard let routeProgress = self.routeProgress else {return}
         guard routeProgress.route.containsStep(at: legIndex, stepIndex: stepIndex) else { return }
         delegate?.tapOnSteps()
     }
@@ -228,6 +232,8 @@ extension TurnByTurnInstructionsVC: UITableViewDataSource {
         if section == 0 {
             return nil
         }
+        
+        guard let routeProgress = self.routeProgress else {return}
 
         let leg = routeProgress.route.legs[section]
         let sourceName = leg.source?.name

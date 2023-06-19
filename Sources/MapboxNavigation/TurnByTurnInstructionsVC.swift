@@ -22,7 +22,7 @@ public class TurnByTurnInstructionsVC: UIViewController {
     weak var separatorView: UIView!
     weak var tableView: UITableView!
     
-    weak var delegate: TurnByTurnInstructionsVCDelegate?
+    public weak var delegate: TurnByTurnInstructionsVCDelegate?
     
     let cellId = "StepTableViewCellId"
     var routeProgress: RouteProgress?

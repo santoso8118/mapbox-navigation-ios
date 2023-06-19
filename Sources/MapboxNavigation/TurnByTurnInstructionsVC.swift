@@ -163,6 +163,9 @@ public class TurnByTurnInstructionsVC: UIViewController {
 
 extension TurnByTurnInstructionsVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let routeProgress = self.routeProgress else {return}
+        
         tableView.deselectRow(at: indexPath, animated: true)
         let legIndex = indexPath.section
         let cell = tableView.cellForRow(at: indexPath) as! StepTableViewCell
@@ -178,8 +181,7 @@ extension TurnByTurnInstructionsVC: UITableViewDelegate {
                 stepIndex += 1
             }
         }
-        
-        guard let routeProgress = self.routeProgress else {return}
+                
         guard routeProgress.route.containsStep(at: legIndex, stepIndex: stepIndex) else { return }
         delegate?.tapOnSteps()
     }
@@ -233,7 +235,7 @@ extension TurnByTurnInstructionsVC: UITableViewDataSource {
             return nil
         }
         
-        guard let routeProgress = self.routeProgress else {return}
+        guard let routeProgress = self.routeProgress else {return nil}
 
         let leg = routeProgress.route.legs[section]
         let sourceName = leg.source?.name

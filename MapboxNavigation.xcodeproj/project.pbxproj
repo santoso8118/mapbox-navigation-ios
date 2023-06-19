@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C555EA92A40AAFA004C1E13 /* TurnByTurnInstructionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C555EA82A40AAFA004C1E13 /* TurnByTurnInstructionsVC.swift */; };
 		110766AD26A5A64000832F01 /* PassiveNavigationEventDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110766AC26A5A64000832F01 /* PassiveNavigationEventDetails.swift */; };
 		118D883426F8CA0700B2ED7B /* FeedbackEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D882C26F8CA0700B2ED7B /* FeedbackEvent.swift */; };
 		118D883526F8CA0700B2ED7B /* EndOfRouteFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D882D26F8CA0700B2ED7B /* EndOfRouteFeedback.swift */; };
@@ -671,6 +672,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C555EA82A40AAFA004C1E13 /* TurnByTurnInstructionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnByTurnInstructionsVC.swift; sourceTree = "<group>"; };
 		110766AC26A5A64000832F01 /* PassiveNavigationEventDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassiveNavigationEventDetails.swift; sourceTree = "<group>"; };
 		118D882C26F8CA0700B2ED7B /* FeedbackEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackEvent.swift; sourceTree = "<group>"; };
 		118D882D26F8CA0700B2ED7B /* EndOfRouteFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndOfRouteFeedback.swift; sourceTree = "<group>"; };
@@ -2043,6 +2045,7 @@
 				8A2354EC28877890003E42B4 /* BottomBannerViewControllerLayout.swift */,
 				B493FB1C2767EDDB002AF455 /* InstructionsBannerViewDelegate.swift */,
 				76F92C1A2A1F720600FDB53E /* EnglishInstruction.swift */,
+				0C555EA82A40AAFA004C1E13 /* TurnByTurnInstructionsVC.swift */,
 			);
 			name = Banners;
 			sourceTree = "<group>";
@@ -3215,6 +3218,7 @@
 				3EA937B1F4DF73EB004BA6BE /* InstructionPresenter.swift in Sources */,
 				5A1C075824BDEB44000A6330 /* PassiveLocationProvider.swift in Sources */,
 				8AE8FB912717543100EA026A /* UIColor.swift in Sources */,
+				0C555EA92A40AAFA004C1E13 /* TurnByTurnInstructionsVC.swift in Sources */,
 				8AD220A927C08F7C000734A5 /* MarkerView.swift in Sources */,
 				3EA93A1FEFDDB709DE84BED9 /* ImageRepository.swift in Sources */,
 				2B8098412411375700FED452 /* SpeechSynthesizing.swift in Sources */,

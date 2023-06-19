@@ -8,12 +8,11 @@
 
 import UIKit
 import MapboxCoreNavigation
-import MapboxNavigation
 import MapboxMaps
 import MapboxCoreMaps
 import MapboxDirections
 
-protocol TurnByTurnInstructionsVCDelegate: AnyObject {
+public protocol TurnByTurnInstructionsVCDelegate: AnyObject {
     func tapOnSteps()
 }
 

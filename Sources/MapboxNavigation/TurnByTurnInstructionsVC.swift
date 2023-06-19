@@ -17,7 +17,7 @@ protocol TurnByTurnInstructionsVCDelegate: AnyObject {
     func tapOnSteps()
 }
 
-public class TurnByTurnInstructionsVC: ContainerViewController {
+public class TurnByTurnInstructionsVC: UIViewController {
     
     weak var titleLabel: UILabel!
     weak var separatorView: UIView!
@@ -35,7 +35,7 @@ public class TurnByTurnInstructionsVC: ContainerViewController {
     var previousStepIndex: Int = NSNotFound
 
     /**
-     Initializes StepsViewController with a RouteProgress object.
+     Initializes TurnByTurnInstructionsVC with a RouteProgress object.
 
      - parameter routeProgress: The user's current route progress.
      - seealso: RouteProgress
@@ -99,6 +99,11 @@ public class TurnByTurnInstructionsVC: ContainerViewController {
     }
 
     @objc func progressDidChange(_ notification: Notification) {
+        
+        //  Need to get current progress and update
+        guard let progress = notification.userInfo?[RouteController.NotificationUserInfoKey.routeProgressKey] as? RouteProgress else {return}
+        routeProgress = progress
+        
         if rebuildDataSourceIfNecessary() {
             tableView.reloadData()
         }
@@ -151,40 +156,6 @@ public class TurnByTurnInstructionsVC: ContainerViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         tableView.register(StepTableViewCell.self, forCellReuseIdentifier: cellId)
-    }
-    
-    // MARK: - Navigation component
-    public func navigationService(_ service: NavigationService, didUpdate progress: RouteProgress, with location: CLLocation, rawLocation: CLLocation) {
-        routeProgress = progress
-        rebuildDataSourceIfNecessary()
-    }
-    
-    public func navigationService(_ service: NavigationService, didPassVisualInstructionPoint instruction: VisualInstructionBanner, routeProgress: RouteProgress) {
-        //  Nothing to be done
-    }
-    
-    public func navigationService(_ service: NavigationService, willRerouteFrom location: CLLocation) {
-        //  Nothing to be done
-    }
-    
-    public func navigationService(_ service: NavigationService, didRerouteAlong route: Route, at location: CLLocation?, proactive: Bool) {
-        //  Nothing to be done
-    }
-    
-    public func navigationService(_ service: NavigationService, didSwitchToCoincidentOnlineRoute coincideRoute: Route) {
-        //  Nothing to be done
-    }
-    
-    private func handleReroute(_ service: NavigationService, proactive: Bool) {
-        //  Nothing to be done - while rerouting dismiss steps then update the list later
-    }
-    
-    public func navigationService(_ service: NavigationService, didBeginSimulating progress: RouteProgress, becauseOf reason: SimulationIntent) {
-        //  Nothing to be done
-    }
-    
-    public func navigationService(_ service: NavigationService, willEndSimulating progress: RouteProgress, becauseOf reason: SimulationIntent) {
-        //  Nothing to be done
     }
 }
 

@@ -59,7 +59,11 @@ open class TopBannerViewController: UIViewController {
     /**
      Option always show full turn by turn list
      */
-    public var shouldShowInstructionFullList: Bool = false
+    public var shouldShowInstructionFullList: Bool = false {
+        didSet {
+            self.stepsViewController?.showDismissButton(!shouldShowInstructionFullList)
+        }
+    }
     
     public var tapOnTopBanner: TapOnTopBannerCallback?
     

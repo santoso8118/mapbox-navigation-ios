@@ -138,7 +138,7 @@ public class StepsViewController: UIViewController {
         self.separatorBottomView = separatorBottomView
 
         dimissButtonHeightConstraint = dismissButton.heightAnchor.constraint(equalToConstant: 54)
-        dimissButtonHeightConstraint.isActive = true
+        dimissButtonHeightConstraint?.isActive = true
         dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         dismissButton.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
         dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

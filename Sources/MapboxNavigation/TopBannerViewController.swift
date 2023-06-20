@@ -53,6 +53,11 @@ open class TopBannerViewController: UIViewController {
      */
     public var junctionView: JunctionView = .forAutoLayout(hidden: true)
     
+    /**
+     Option always show full turn by turn list
+     */
+    public var shouldShowInstructionFullList: Bool = false
+    
     private let instructionsBannerHeight: CGFloat = 100.0
     
     private var informationChildren: [UIView] {
@@ -279,6 +284,7 @@ open class TopBannerViewController: UIViewController {
         }
         
         let controller = StepsViewController(routeProgress: progress)
+        controller.shouldShowDismissButton = !shouldShowInstructionFullList
         controller.delegate = self
 
         var stepsHeightPresizingConstraint: NSLayoutConstraint? = nil
@@ -328,6 +334,12 @@ open class TopBannerViewController: UIViewController {
     }
     
     public func dismissStepsTable(completion: CompletionHandler? = nil) {
+        
+        if shouldShowInstructionFullList {
+            //  Never hide instruction steps
+            return
+        }
+        
         guard let parent = parent, let steps = stepsViewController else { return }
         parent.view.layoutIfNeeded()
         
@@ -478,6 +490,7 @@ extension TopBannerViewController: CarPlayConnectionObserver {
     }
     
     public func didDisconnectFromCarPlay() {
+        shouldShowInstructionFullList = false
         dismissStepsTable()
     }
 }

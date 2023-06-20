@@ -23,6 +23,8 @@ public class StepsViewController: UIViewController {
 
     var previousLegIndex: Int = NSNotFound
     var previousStepIndex: Int = NSNotFound
+    
+    var shouldShowDismissButton: Bool = true
 
     /**
      Initializes StepsViewController with a RouteProgress object.
@@ -115,7 +117,7 @@ public class StepsViewController: UIViewController {
         tableView.dataSource = self
         view.addSubview(tableView)
         self.tableView = tableView
-
+        
         let dismissButton = DismissButton(type: .custom)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         let title = NSLocalizedString("DISMISS_STEPS_TITLE", bundle: .mapboxNavigation, value: "Close", comment: "Dismiss button title on the steps view")
@@ -153,8 +155,15 @@ public class StepsViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: dismissButton.topAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        self.dismissButton.isHidden = !shouldShowDismissButton
 
         tableView.register(StepTableViewCell.self, forCellReuseIdentifier: cellId)
+    }
+    
+    func showDismissButton(_ isShow: Bool) {
+        self.shouldShowDismissButton = isShow
+        self.dismissButton.isHidden = !shouldShowDismissButton
     }
 
     @IBAction func tappedDismiss(_ sender: Any) {

@@ -163,7 +163,7 @@ public class StepsViewController: UIViewController {
     
     func showDismissButton(_ isShow: Bool) {
         self.shouldShowDismissButton = isShow
-        self.dismissButton.isHidden = !shouldShowDismissButton
+        self.dismissButton?.isHidden = !shouldShowDismissButton
     }
 
     @IBAction func tappedDismiss(_ sender: Any) {

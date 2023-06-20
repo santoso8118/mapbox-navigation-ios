@@ -465,7 +465,9 @@ extension TopBannerViewController: NavigationComponent {
 extension TopBannerViewController: InstructionsBannerViewDelegate {
     public func didTapInstructionsBanner(_ sender: BaseInstructionsBannerView) {
         
-        tapOnTopBanner?()
+        if shouldShowInstructionFullList {
+            tapOnTopBanner?()
+        }
         
         if isDisplayingSteps {
             dismissStepsTable()
@@ -486,7 +488,10 @@ extension TopBannerViewController: InstructionsBannerViewDelegate {
 extension TopBannerViewController: StepsViewControllerDelegate {
     public func stepsViewController(_ viewController: StepsViewController, didSelect legIndex: Int, stepIndex: Int, cell: StepTableViewCell) {
         delegate?.topBanner(self, didSelect: legIndex, stepIndex: stepIndex, cell: cell)
-        tapOnTopBanner?()
+        
+        if shouldShowInstructionFullList {
+            tapOnTopBanner?()
+        }
     }
     
     public func didDismissStepsViewController(_ viewController: StepsViewController) {

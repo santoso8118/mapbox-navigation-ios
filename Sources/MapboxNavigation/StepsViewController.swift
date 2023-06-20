@@ -25,6 +25,7 @@ public class StepsViewController: UIViewController {
     var previousStepIndex: Int = NSNotFound
     
     var shouldShowDismissButton: Bool = true
+    var dimissButtonHeightConstraint : NSLayoutConstraint?
 
     /**
      Initializes StepsViewController with a RouteProgress object.
@@ -136,7 +137,8 @@ public class StepsViewController: UIViewController {
         dismissButton.addSubview(separatorBottomView)
         self.separatorBottomView = separatorBottomView
 
-        dismissButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        dimissButtonHeightConstraint = dismissButton.heightAnchor.constraint(equalToConstant: 54)
+        dimissButtonHeightConstraint.isActive = true
         dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         dismissButton.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
         dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -157,6 +159,7 @@ public class StepsViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         self.dismissButton.isHidden = !shouldShowDismissButton
+        dimissButtonHeightConstraint?.constant = shouldShowDismissButton ? 54 : 0
 
         tableView.register(StepTableViewCell.self, forCellReuseIdentifier: cellId)
     }
@@ -164,6 +167,7 @@ public class StepsViewController: UIViewController {
     func showDismissButton(_ isShow: Bool) {
         self.shouldShowDismissButton = isShow
         self.dismissButton?.isHidden = !shouldShowDismissButton
+        dimissButtonHeightConstraint?.constant = shouldShowDismissButton ? 54 : 0
     }
 
     @IBAction func tappedDismiss(_ sender: Any) {

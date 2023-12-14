@@ -41,9 +41,9 @@
         "package": "MapboxDirections",
         "repositoryURL": "https://github.com/santoso8118/mapbox-directions-swift",
         "state": {
-          "branch": "hotfix-release-v2.10",
-          "revision": "14013c161c5eb598c82a21494131a689e40a02f9",
-          "version": "2.10.0"
+          "branch": null,
+          "revision": "55a64e832955eb1965eafa7400d0eca40842475b",
+          "version": "2.9.1"
         }
       },
       {

@@ -203,7 +203,8 @@ open class TopBannerViewController: UIViewController {
         previewSteps = steps
         currentPreviewStep = (step, index)
         
-        guard let instructions = step.instructionsDisplayedAlongStep?.last else { return }
+        guard let myInstructions = step.instructionsDisplayedAlongStep?.last else { return }
+        let instructions = fixInstruction(myInstructions)
         
         let instructionsView = InstructionsBannerView(frame: instructionsBannerView.frame)
         instructionsView.heightAnchor.constraint(equalToConstant: instructionsBannerHeight).isActive = true
@@ -385,11 +386,13 @@ extension TopBannerViewController: NavigationComponent {
     }
     
     public func navigationService(_ service: NavigationService, didPassVisualInstructionPoint instruction: VisualInstructionBanner, routeProgress: RouteProgress) {
-        currentInstruction = instruction
-        instructionsBannerView.update(for: instruction)
-        nextBannerView.navigationService(service, didPassVisualInstructionPoint: instruction, routeProgress: routeProgress)
-        junctionView.update(for: instruction, service: service)
-        lanesView.update(for: instruction)
+        
+        let fixedInstruction = fixInstruction(instruction)
+        currentInstruction = fixedInstruction
+        instructionsBannerView.update(for: fixedInstruction)
+        nextBannerView.navigationService(service, didPassVisualInstructionPoint: fixedInstruction, routeProgress: routeProgress)
+        junctionView.update(for: fixedInstruction, service: service)
+        lanesView.update(for: fixedInstruction)
     }
     
     public func navigationService(_ service: NavigationService, willRerouteFrom location: CLLocation) {

@@ -44,3 +44,12 @@ extension String {
         return digest.lazy.map { String(format: "%02x", $0) }.joined()
     }
 }
+
+extension String {
+    
+    func containsChineseOrTamil() -> Bool {
+        let regex = try! NSRegularExpression(pattern: "[\\u0b80-\\u0bFF|\\u4e00-\\u9fff]", options: [])
+        let replaced = regex.stringByReplacingMatches(in: self, range: NSRange(0..<self.utf16.count), withTemplate: "*")
+        return (self != replaced)
+    }
+}

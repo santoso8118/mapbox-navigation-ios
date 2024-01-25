@@ -1174,7 +1174,7 @@ extension CarPlayManager: CarPlayNavigationViewControllerDelegate {
                 carPlayMapViewController?.subscribeForFreeDriveNotifications()
             }
             
-            self.carPlayNavigationViewController = nil
+//            self.carPlayNavigationViewController = nil
             delegate?.carPlayManagerDidEndNavigation(self)
             delegate?.carPlayManagerDidEndNavigation(self, byCanceling: canceled)
         }

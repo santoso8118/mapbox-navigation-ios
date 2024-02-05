@@ -6,7 +6,7 @@ public extension AVAudioSession {
     
     func tryDuckAudio() -> Error? {
         do {
-            try setCategory(.playback, mode: .voicePrompt, options: [.duckOthers, .mixWithOthers])
+            try setCategory(.playback, mode: .voicePrompt, options: [.duckOthers, .interruptSpokenAudioAndMixWithOthers])
             try setActive(true)
         } catch {
             return error

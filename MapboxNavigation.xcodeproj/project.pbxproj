@@ -262,7 +262,6 @@
 		5A1C075824BDEB44000A6330 /* PassiveLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C075724BDEB44000A6330 /* PassiveLocationProvider.swift */; };
 		5A39B9282498F9890026DFD1 /* PassiveLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A39B9272498F9890026DFD1 /* PassiveLocationManager.swift */; };
 		5A43FC8B24B488DC00BF7943 /* PassiveLocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A43FC8A24B488DC00BF7943 /* PassiveLocationManagerTests.swift */; };
-		769C0AC82B70D66A0024F0A9 /* reroute-sound-system.caf in Resources */ = {isa = PBXBuildFile; fileRef = 769C0AC72B70D66A0024F0A9 /* reroute-sound-system.caf */; };
 		76F92C1B2A1F720600FDB53E /* EnglishInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F92C1A2A1F720600FDB53E /* EnglishInstruction.swift */; };
 		7E6CAE392976B346001D749D /* RoadShield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CAE382976B346001D749D /* RoadShield.swift */; };
 		8A0155E828F8EC72009E299C /* BannerPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0155E728F8EC72009E299C /* BannerPresentationTests.swift */; };
@@ -972,7 +971,6 @@
 		5A1C075724BDEB44000A6330 /* PassiveLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveLocationProvider.swift; sourceTree = "<group>"; };
 		5A39B9272498F9890026DFD1 /* PassiveLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveLocationManager.swift; sourceTree = "<group>"; };
 		5A43FC8A24B488DC00BF7943 /* PassiveLocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveLocationManagerTests.swift; sourceTree = "<group>"; };
-		769C0AC72B70D66A0024F0A9 /* reroute-sound-system.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "reroute-sound-system.caf"; sourceTree = "<group>"; };
 		76F92C1A2A1F720600FDB53E /* EnglishInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnglishInstruction.swift; sourceTree = "<group>"; };
 		7E6CAE382976B346001D749D /* RoadShield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoadShield.swift; sourceTree = "<group>"; };
 		8A0155E728F8EC72009E299C /* BannerPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerPresentationTests.swift; sourceTree = "<group>"; };
@@ -1717,7 +1715,6 @@
 		351BEC211E5BD506006FE110 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				769C0AC72B70D66A0024F0A9 /* reroute-sound-system.caf */,
 				351BEC281E5BD530006FE110 /* Assets.xcassets */,
 				C520EE921EBB84F9008805BC /* Navigation.storyboard */,
 				DAAE5F321EAE4C4700832871 /* Localizable.strings */,
@@ -3013,7 +3010,6 @@
 				DAAE5F301EAE4C4700832871 /* Localizable.strings in Resources */,
 				351BEC291E5BD530006FE110 /* Assets.xcassets in Resources */,
 				C520EE901EBB84F9008805BC /* Navigation.storyboard in Resources */,
-				769C0AC82B70D66A0024F0A9 /* reroute-sound-system.caf in Resources */,
 				DA3525702010A5210048DDFC /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

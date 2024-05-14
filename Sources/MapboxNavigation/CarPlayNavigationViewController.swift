@@ -982,6 +982,9 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
         
         var maneuvers: [CPManeuver] = [primaryManeuver]
         
+        let widthOfManeuverView = min(self.view.bounds.width - self.view.safeArea.left,
+                                      self.view.bounds.width - self.view.safeArea.right)
+        
         // Add tertiary information, if available
         if let tertiaryInstruction = visualInstruction.tertiaryInstruction {
             let tertiaryManeuver = CPManeuver()
@@ -1010,9 +1013,6 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
                     tertiaryManeuver.attributedInstructionVariants = [attributedTertiary]
                 }
             }
-            
-            let widthOfManeuverView = min(self.view.bounds.width - self.view.safeArea.left,
-                                          self.view.bounds.width - self.view.safeArea.right)
             
             if let upcomingStep = navigationService.routeProgress.currentLegProgress.upcomingStep {
                 let distance = Measurement(distance: upcomingStep.distance).localized()

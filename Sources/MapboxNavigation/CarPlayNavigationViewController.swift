@@ -223,6 +223,8 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
     
     private var safeTrailingCompassViewConstraint: NSLayoutConstraint!
     private var trailingCompassViewConstraint: NSLayoutConstraint!
+    
+    private var etaFrameSize: CGSize?
 
     func setupOrnaments() {
         let compassView = CarPlayCompassView()
@@ -1008,18 +1010,40 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
                     tertiaryManeuver.attributedInstructionVariants = [attributedTertiary]
                 }
             }
-
+            
+            let widthOfManeuverView = min(self.view.bounds.width - self.view.safeArea.left,
+                                          self.view.bounds.width - self.view.safeArea.right)
+            
             if let upcomingStep = navigationService.routeProgress.currentLegProgress.upcomingStep {
                 let distance = Measurement(distance: upcomingStep.distance).localized()
                 tertiaryManeuver.initialTravelEstimates = CPTravelEstimates(distanceRemaining: distance,
                                                                             timeRemaining: upcomingStep.expectedTravelTime)
+                
+                let sampleText = """
+                11:42
+                arrival
+                """
+                let textHeight = sampleText.height(withConstrainedWidth: widthOfManeuverView, font: .systemFont(ofSize: 18))
+                etaFrameSize = CGSizeMake(widthOfManeuverView, textHeight + 2*20)
+                
+            } else {
+                //  If there are no upcomming step then reset availability frame
+                etaFrameSize = CGSizeMake(widthOfManeuverView, 0)
             }
 
             maneuvers.append(tertiaryManeuver)
+        } else {
+            etaFrameSize = CGSizeMake(widthOfManeuverView, 0)
         }
         
         carSession.upcomingManeuvers = maneuvers
     }
+
+    
+    func getETAFrameSize() -> CGSize? {
+        return etaFrameSize
+    }
+    
     
     /**
      Returns guidance view image representation if it's present in the current visual instruction.
@@ -1223,5 +1247,21 @@ extension CarPlayNavigationViewController: CPListTemplateDelegate {
             self.carInterfaceController.popTemplate(animated: true)
             completionHandler()
         })
+    }
+}
+
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+    
+        return ceil(boundingBox.height)
+    }
+
+    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+
+        return ceil(boundingBox.width)
     }
 }

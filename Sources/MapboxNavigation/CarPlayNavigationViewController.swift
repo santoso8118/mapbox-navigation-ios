@@ -224,7 +224,7 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
     private var safeTrailingCompassViewConstraint: NSLayoutConstraint!
     private var trailingCompassViewConstraint: NSLayoutConstraint!
     
-    private var etaFrameSize: CGSize?
+    public var etaFrameSize: CGSize?
 
     func setupOrnaments() {
         let compassView = CarPlayCompassView()
@@ -1040,7 +1040,7 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
     }
 
     
-    func getETAFrameSize() -> CGSize? {
+    public func getETAFrameSize() -> CGSize? {
         return etaFrameSize
     }
     

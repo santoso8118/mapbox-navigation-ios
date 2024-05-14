@@ -985,6 +985,13 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
         let widthOfManeuverView = min(self.view.bounds.width - self.view.safeArea.left,
                                       self.view.bounds.width - self.view.safeArea.right)
         
+        let sampleText = """
+        11:42
+        arrival
+        """
+        let textHeight = sampleText.height(withConstrainedWidth: widthOfManeuverView, font: .systemFont(ofSize: 18))
+        etaFrameSize = CGSizeMake(widthOfManeuverView, textHeight + 2*20)
+        
         // Add tertiary information, if available
         if let tertiaryInstruction = visualInstruction.tertiaryInstruction {
             let tertiaryManeuver = CPManeuver()
@@ -1019,21 +1026,9 @@ open class CarPlayNavigationViewController: UIViewController, BuildingHighlighti
                 tertiaryManeuver.initialTravelEstimates = CPTravelEstimates(distanceRemaining: distance,
                                                                             timeRemaining: upcomingStep.expectedTravelTime)
                 
-                let sampleText = """
-                11:42
-                arrival
-                """
-                let textHeight = sampleText.height(withConstrainedWidth: widthOfManeuverView, font: .systemFont(ofSize: 18))
-                etaFrameSize = CGSizeMake(widthOfManeuverView, textHeight + 2*20)
-                
-            } else {
-                //  If there are no upcomming step then reset availability frame
-                etaFrameSize = CGSizeMake(widthOfManeuverView, 0)
             }
 
             maneuvers.append(tertiaryManeuver)
-        } else {
-            etaFrameSize = CGSizeMake(widthOfManeuverView, 0)
         }
         
         carSession.upcomingManeuvers = maneuvers

@@ -9,6 +9,9 @@ import MapboxDirections
  
  This class is the default top banner view controller used by `NavigationOptions` and `NavigationViewController`. `InstructionsCardViewController` provides an alternative, user notification–like interface.
  */
+
+public typealias TapOnTopBannerCallback = ()-> (Void)
+
 open class TopBannerViewController: UIViewController {
     
     // MARK: Displaying Instructions
@@ -55,6 +58,17 @@ open class TopBannerViewController: UIViewController {
      A view that indicates the layout of a highway junction.
      */
     public var junctionView: JunctionView = .forAutoLayout(hidden: true)
+    
+    /**
+     Option always show full turn by turn list
+     */
+    public var shouldShowInstructionFullList: Bool = false {
+        didSet {
+            self.stepsViewController?.showDismissButton(!shouldShowInstructionFullList)
+        }
+    }
+    
+    public var tapOnTopBanner: TapOnTopBannerCallback?
     
     private let instructionsBannerHeight: CGFloat = 100.0
     
@@ -282,6 +296,7 @@ open class TopBannerViewController: UIViewController {
         }
         
         let controller = StepsViewController(routeProgress: progress)
+        controller.shouldShowDismissButton = !shouldShowInstructionFullList
         controller.delegate = self
 
         var stepsHeightPresizingConstraint: NSLayoutConstraint? = nil
@@ -331,6 +346,12 @@ open class TopBannerViewController: UIViewController {
     }
     
     public func dismissStepsTable(completion: CompletionHandler? = nil) {
+        
+        if shouldShowInstructionFullList {
+            //  Never hide instruction steps
+            return
+        }
+        
         guard let parent = parent, let steps = stepsViewController else { return }
         parent.view.layoutIfNeeded()
         
@@ -446,6 +467,11 @@ extension TopBannerViewController: NavigationComponent {
 // MARK: InstructionsBannerViewDelegate Conformance
 extension TopBannerViewController: InstructionsBannerViewDelegate {
     public func didTapInstructionsBanner(_ sender: BaseInstructionsBannerView) {
+        
+        if shouldShowInstructionFullList {
+            tapOnTopBanner?()
+        }
+        
         if isDisplayingSteps {
             dismissStepsTable()
         } else {
@@ -465,6 +491,10 @@ extension TopBannerViewController: InstructionsBannerViewDelegate {
 extension TopBannerViewController: StepsViewControllerDelegate {
     public func stepsViewController(_ viewController: StepsViewController, didSelect legIndex: Int, stepIndex: Int, cell: StepTableViewCell) {
         delegate?.topBanner(self, didSelect: legIndex, stepIndex: stepIndex, cell: cell)
+        
+        if shouldShowInstructionFullList {
+            tapOnTopBanner?()
+        }
     }
     
     public func didDismissStepsViewController(_ viewController: StepsViewController) {
@@ -481,6 +511,7 @@ extension TopBannerViewController: CarPlayConnectionObserver {
     }
     
     public func didDisconnectFromCarPlay() {
+        shouldShowInstructionFullList = false
         dismissStepsTable()
     }
 }

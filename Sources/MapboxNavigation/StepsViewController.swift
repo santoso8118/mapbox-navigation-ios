@@ -23,6 +23,9 @@ public class StepsViewController: UIViewController {
 
     var previousLegIndex: Int = NSNotFound
     var previousStepIndex: Int = NSNotFound
+    
+    var shouldShowDismissButton: Bool = true
+    var dimissButtonHeightConstraint : NSLayoutConstraint?
 
     /**
      Initializes StepsViewController with a RouteProgress object.
@@ -115,7 +118,7 @@ public class StepsViewController: UIViewController {
         tableView.dataSource = self
         view.addSubview(tableView)
         self.tableView = tableView
-
+        
         let dismissButton = DismissButton(type: .custom)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         let title = NSLocalizedString("DISMISS_STEPS_TITLE", bundle: .mapboxNavigation, value: "Close", comment: "Dismiss button title on the steps view")
@@ -134,7 +137,8 @@ public class StepsViewController: UIViewController {
         dismissButton.addSubview(separatorBottomView)
         self.separatorBottomView = separatorBottomView
 
-        dismissButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        dimissButtonHeightConstraint = dismissButton.heightAnchor.constraint(equalToConstant: 54)
+        dimissButtonHeightConstraint?.isActive = true
         dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         dismissButton.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
         dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -153,8 +157,17 @@ public class StepsViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: dismissButton.topAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        self.dismissButton.isHidden = !shouldShowDismissButton
+        dimissButtonHeightConstraint?.constant = shouldShowDismissButton ? 54 : 0
 
         tableView.register(StepTableViewCell.self, forCellReuseIdentifier: cellId)
+    }
+    
+    func showDismissButton(_ isShow: Bool) {
+        self.shouldShowDismissButton = isShow
+        self.dismissButton?.isHidden = !shouldShowDismissButton
+        dimissButtonHeightConstraint?.constant = shouldShowDismissButton ? 54 : 0
     }
 
     @IBAction func tappedDismiss(_ sender: Any) {

@@ -225,8 +225,9 @@ extension StepsViewController: UITableViewDataSource {
         let step = sections[indexPath.section][indexPath.row]
 
         if let instructions = step.instructionsDisplayedAlongStep?.last {
-            cell.instructionsView.update(for: instructions)
-            cell.instructionsView.secondaryLabel.instruction = instructions.secondaryInstruction
+            let fixedInstruction = fixInstruction(instructions)
+            cell.instructionsView.update(for: fixedInstruction)
+            cell.instructionsView.secondaryLabel.instruction = fixedInstruction.secondaryInstruction
         }
         cell.instructionsView.distance = step.distance
 

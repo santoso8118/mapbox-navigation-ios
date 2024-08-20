@@ -1061,7 +1061,9 @@ extension NavigationViewController: NavigationServiceDelegate {
             currentLegProgress.currentStep.instructionsSpokenAlongStep?.last {
             return
         }
-        guard let instruction = currentLegProgress.currentStep.instructionsDisplayedAlongStep?.last else { return }
+        guard let myInstruction = currentLegProgress.currentStep.instructionsDisplayedAlongStep?.last else { return }
+        
+        let instruction = fixInstruction(myInstruction)
         
         let content = UNMutableNotificationContent()
         if let primaryText = instruction.primaryInstruction.text {

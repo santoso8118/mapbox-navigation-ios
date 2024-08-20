@@ -264,6 +264,7 @@
 		5A39B9282498F9890026DFD1 /* PassiveLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A39B9272498F9890026DFD1 /* PassiveLocationManager.swift */; };
 		5A43FC8B24B488DC00BF7943 /* PassiveLocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A43FC8A24B488DC00BF7943 /* PassiveLocationManagerTests.swift */; };
 		7E6CAE392976B346001D749D /* RoadShield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CAE382976B346001D749D /* RoadShield.swift */; };
+		76F92C1B2A1F720600FDB53E /* EnglishInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F92C1A2A1F720600FDB53E /* EnglishInstruction.swift */; };
 		8A0155E828F8EC72009E299C /* BannerPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0155E728F8EC72009E299C /* BannerPresentationTests.swift */; };
 		8A0155EA28F8EC85009E299C /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0155E928F8EC85009E299C /* StackTests.swift */; };
 		8A0155EC28F8ED38009E299C /* PreviewViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0155EB28F8ED38009E299C /* PreviewViewControllerTests.swift */; };
@@ -966,6 +967,7 @@
 		5A39B9272498F9890026DFD1 /* PassiveLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveLocationManager.swift; sourceTree = "<group>"; };
 		5A43FC8A24B488DC00BF7943 /* PassiveLocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveLocationManagerTests.swift; sourceTree = "<group>"; };
 		7E6CAE382976B346001D749D /* RoadShield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoadShield.swift; sourceTree = "<group>"; };
+		76F92C1A2A1F720600FDB53E /* EnglishInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnglishInstruction.swift; sourceTree = "<group>"; };
 		8A0155E728F8EC72009E299C /* BannerPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerPresentationTests.swift; sourceTree = "<group>"; };
 		8A0155E928F8EC85009E299C /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		8A0155EB28F8ED38009E299C /* PreviewViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewControllerTests.swift; sourceTree = "<group>"; };
@@ -2168,6 +2170,7 @@
 				8A2354ED28877890003E42B4 /* BottomBannerViewControllerDelegate.swift */,
 				8A2354EC28877890003E42B4 /* BottomBannerViewControllerLayout.swift */,
 				B493FB1C2767EDDB002AF455 /* InstructionsBannerViewDelegate.swift */,
+				76F92C1A2A1F720600FDB53E /* EnglishInstruction.swift */,
 			);
 			name = Banners;
 			sourceTree = "<group>";
@@ -3174,6 +3177,7 @@
 				35E407681F5625FF00EFC814 /* StyleKitMarker.swift in Sources */,
 				C588C3C21F33882100520EF2 /* String.swift in Sources */,
 				C53208AB1E81FFB900910266 /* NavigationMapView.swift in Sources */,
+				76F92C1B2A1F720600FDB53E /* EnglishInstruction.swift in Sources */,
 				8AF1D56628EFA1CA00041ED4 /* Banner.swift in Sources */,
 				8AD2212727C441D7000734A5 /* BannerView.swift in Sources */,
 				8A30113C25DDCC8A00CE192A /* NavigationCameraConstants.swift in Sources */,

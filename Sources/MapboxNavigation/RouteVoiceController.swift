@@ -171,7 +171,7 @@ open class RouteVoiceController: NSObject, AVSpeechSynthesizerDelegate {
 //        }
         
 //        rerouteSoundPlayer.play()
-        playDingSound()
+//        playDingSound()
     }
     
     // MARK: Sounding Rerouting
@@ -249,9 +249,7 @@ extension RouteVoiceController {
     }
     
     func playDingSound() {
-        if UserDefaults.standard.bool(forKey: "enableAudio") {
-            playCustomSystemSound(name: "reroute-sound-system", type: "caf")
-        }
+        playCustomSystemSound(name: "reroute-sound-system", type: "caf")
     }
     
 }

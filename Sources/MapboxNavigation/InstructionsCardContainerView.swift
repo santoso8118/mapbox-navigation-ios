@@ -84,7 +84,8 @@ public class InstructionsCardContainerView: StylableView, InstructionsCardContai
         instructionsCardView.step = step
         
         if let instruction = instruction ?? step.instructionsDisplayedAlongStep?.last {
-            updateInstruction(instruction)
+            let fixedInstruction = fixInstruction(instruction)
+            updateInstruction(fixedInstruction)
         }
         updateInstructionCard(distance: distance, isCurrentCardStep: isCurrentCardStep)
     }

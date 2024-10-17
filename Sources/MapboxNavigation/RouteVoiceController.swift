@@ -62,12 +62,12 @@ open class RouteVoiceController: NSObject, AVSpeechSynthesizerDelegate {
      */
     public init(navigationService: NavigationService, speechSynthesizer: SpeechSynthesizing? = nil, accessToken: String? = nil, host: String? = nil) {
         self.speechSynthesizer = speechSynthesizer ?? MultiplexedSpeechSynthesizer(accessToken: accessToken, host: host)
-        rerouteSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "reroute-sound", bundle: .mapboxNavigation)!.data,
-                                                fileTypeHint: AVFileType.mp3.rawValue)
+//        rerouteSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "reroute-sound", bundle: .mapboxNavigation)!.data,
+//                                                fileTypeHint: AVFileType.mp3.rawValue)
         
         super.init()
         
-        rerouteSoundPlayer.delegate = self
+//        rerouteSoundPlayer.delegate = self
 
         verifyBackgroundAudio()
 
@@ -161,16 +161,17 @@ open class RouteVoiceController: NSObject, AVSpeechSynthesizerDelegate {
             return
         }
         
-        speechSynthesizer.stopSpeaking()
+//        speechSynthesizer.stopSpeaking()
+//
+//        if let error = AVAudioSession.sharedInstance().tryDuckAudio() {
+//            let wrappedError = SpeechError.unableToControlAudio(instruction: nil,
+//                                                                action: .duck,
+//                                                                underlying: error)
+//            routeVoiceControllerDelegate?.routeVoiceController(self, encountered: wrappedError)
+//        }
         
-        if let error = AVAudioSession.sharedInstance().tryDuckAudio() {
-            let wrappedError = SpeechError.unableToControlAudio(instruction: nil,
-                                                                action: .duck,
-                                                                underlying: error)
-            routeVoiceControllerDelegate?.routeVoiceController(self, encountered: wrappedError)
-        }
-        
-        rerouteSoundPlayer.play()
+//        rerouteSoundPlayer.play()
+        playDingSound()
     }
     
     // MARK: Sounding Rerouting
@@ -183,7 +184,7 @@ open class RouteVoiceController: NSObject, AVSpeechSynthesizerDelegate {
     /**
      Sound to play prior to reroute. Inherits volume level from `volume`.
      */
-    public var rerouteSoundPlayer: AVAudioPlayer
+//    public var rerouteSoundPlayer: AVAudioPlayer
     
     @objc func didReroute(notification: NSNotification) {
         // Play reroute sound when a faster route is found
@@ -215,20 +216,42 @@ public extension RouteVoiceControllerDelegate {
     }
 }
 
-extension RouteVoiceController: AVAudioPlayerDelegate {
-    
-    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        // Ducking and unducking is not performed when re-routing sound playback is switched off
-        // or when voice is muted in global settings.
-        guard playRerouteSound && !NavigationSettings.shared.voiceMuted else {
-            return
-        }
-        
-        if let error = AVAudioSession.sharedInstance().tryUnduckAudio() {
-            let wrappedError = SpeechError.unableToControlAudio(instruction: nil,
-                                                                action: .unduck,
-                                                                underlying: error)
-            routeVoiceControllerDelegate?.routeVoiceController(self, encountered: wrappedError)
+//extension RouteVoiceController: AVAudioPlayerDelegate {
+//
+//    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        // Ducking and unducking is not performed when re-routing sound playback is switched off
+//        // or when voice is muted in global settings.
+//        guard playRerouteSound && !NavigationSettings.shared.voiceMuted else {
+//            return
+//        }
+//
+//        if let error = AVAudioSession.sharedInstance().tryUnduckAudio() {
+//            let wrappedError = SpeechError.unableToControlAudio(instruction: nil,
+//                                                                action: .unduck,
+//                                                                underlying: error)
+//            routeVoiceControllerDelegate?.routeVoiceController(self, encountered: wrappedError)
+//        }
+//    }
+//}
+
+extension RouteVoiceController {
+    private func playCustomSystemSound(name: String, type: String) {
+        if let path = Bundle.main.path(forResource: name, ofType: type) {
+            let url = URL(fileURLWithPath: path) as CFURL
+            var soundID: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(url, &soundID)
+            AudioServicesPlaySystemSoundWithCompletion(soundID) {
+                AudioServicesDisposeSystemSoundID(soundID)
+            }
+        } else {
+            print("file not found!")
         }
     }
+    
+    func playDingSound() {
+        if UserDefaults.standard.bool(forKey: "enableAudio") {
+            playCustomSystemSound(name: "reroute-sound-system", type: "caf")
+        }
+    }
+    
 }

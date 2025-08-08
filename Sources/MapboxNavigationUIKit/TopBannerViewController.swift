@@ -205,7 +205,8 @@ open class TopBannerViewController: UIViewController {
         previewSteps = steps
         currentPreviewStep = (step, index)
 
-        guard let instructions = step.instructionsDisplayedAlongStep?.last else { return }
+        guard let myInstructions = step.instructionsDisplayedAlongStep?.last else { return }
+        let instructions = fixInstruction(myInstructions)
 
         let instructionsView = InstructionsBannerView(frame: instructionsBannerView.frame)
         instructionsView.heightAnchor.constraint(equalToConstant: instructionsBannerHeight).isActive = true
@@ -407,11 +408,14 @@ extension TopBannerViewController: NavigationComponent {
         guard let instruction = progress.currentLegProgress.currentStepProgress.currentVisualInstruction else {
             return
         }
-        currentInstruction = instruction
-        instructionsBannerView.update(for: instruction)
+
+        let fixedInstruction = fixInstruction(instruction)
+        currentInstruction = fixedInstruction
+        instructionsBannerView.update(for: fixedInstruction)
         nextBannerView.onRouteProgressUpdated(progress)
-        junctionView.update(for: instruction, accessToken: accessToken)
-        lanesView.update(for: instruction)
+        junctionView.update(for: fixedInstruction, accessToken: accessToken)
+        lanesView.update(for: fixedInstruction)
+
     }
 
     public func onWillReroute() {

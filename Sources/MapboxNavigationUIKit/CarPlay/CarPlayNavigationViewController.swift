@@ -813,8 +813,9 @@ open class CarPlayNavigationViewController: UIViewController {
 
     func didUpdateRoadNameFromStatus(_ state: MapMatchingState) {
         let roadNameFromStatus = state.roadName?.text
+        let latinName = roadNameFromStatus?.latinString()
 
-        if let roadName = roadNameFromStatus?.nonEmptyString {
+        if let roadName = latinName?.nonEmptyString {
             wayNameView.label.updateRoad(
                 roadName: roadName,
                 representation: state.roadName?.routeShieldRepresentation,

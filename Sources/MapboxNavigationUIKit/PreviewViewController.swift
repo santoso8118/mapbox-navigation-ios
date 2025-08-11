@@ -187,7 +187,7 @@ public class PreviewViewController: UIViewController {
         navigationView.speedLimitView.speedLimit = state.speedLimit.value
 
         // Update current road name. In case if road name is not available `WayNameView` is hidden.
-        let latinName = state.roadName?.text?.latinString()
+        let latinName = state.roadName?.text.latinString()
         if let name = latinName?.nonEmptyString {
             let representation = state.roadName?.routeShieldRepresentation
             navigationView.wayNameView.label.updateRoad(roadName: name, representation: representation)

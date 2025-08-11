@@ -217,7 +217,7 @@ class OrnamentsController: NavigationComponentDelegate {
     // MARK: Road Labelling
 
     func updateRoadNameFromStatus(_ roadName: RoadName?) {
-        let latinName = roadName?.text?.latinString()
+        let latinName = roadName?.text.latinString()
         if let name = latinName?.nonEmptyString {
             let representation = roadName?.routeShieldRepresentation
             navigationView?.wayNameView.label.updateRoad(roadName: name, representation: representation)

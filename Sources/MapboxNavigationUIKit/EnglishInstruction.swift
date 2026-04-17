@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MapboxCoreNavigation
+import MapboxNavigationCore
 import MapboxDirections
 
 extension String {

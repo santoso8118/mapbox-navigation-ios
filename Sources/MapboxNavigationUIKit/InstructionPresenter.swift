@@ -38,7 +38,7 @@ class InstructionPresenter {
         downloadCompletion: ShieldDownloadCompletion?,
         isHighlighted: Bool = false
     ) {
-        self.instruction = instruction
+        self.instruction = fixVisualInstruction(instruction)!
         self.dataSource = dataSource
         self.spriteRepository = spriteRepository
         self.traitCollection = traitCollection

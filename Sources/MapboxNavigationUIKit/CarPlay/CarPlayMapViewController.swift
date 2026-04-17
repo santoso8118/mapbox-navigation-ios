@@ -338,7 +338,8 @@ open class CarPlayMapViewController: UIViewController {
 
         if let wayNameView {
             let roadNameFromStatus = state.roadName?.text
-            if let roadName = roadNameFromStatus?.nonEmptyString {
+            let latinName = roadNameFromStatus?.latinString()
+            if let roadName = latinName?.nonEmptyString {
                 wayNameView.label.updateRoad(
                     roadName: roadName,
                     representation: state.roadName?.routeShieldRepresentation,

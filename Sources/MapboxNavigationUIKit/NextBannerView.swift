@@ -101,7 +101,7 @@ open class NextBannerView: UIView, NavigationComponent {
             maneuverDirection: .right,
             components: [component]
         )
-        instructionLabel.instruction = instruction
+        instructionLabel.instruction = fixVisualInstruction(instruction)
     }
 
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -195,7 +195,7 @@ open class NextBannerView: UIView, NavigationComponent {
 
         maneuverView.visualInstruction = tertiaryInstruction
         maneuverView.drivingSide = visualInstruction?.drivingSide ?? .right
-        instructionLabel.instruction = tertiaryInstruction
+        instructionLabel.instruction = fixVisualInstruction(tertiaryInstruction) 
         show(
             animated: animated,
             duration: duration

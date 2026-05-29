@@ -2,6 +2,11 @@ import Foundation
 
 extension String {
     var nonEmptyString: String? {
-        return !isEmpty ? self : nil
+        var text self.trimmingCharacters(in: .whitespacesAndNewlines)
+        while text.last == "/" {
+            text.removeLast()
+            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return !text.isEmpty ? text : nil
     }
 }

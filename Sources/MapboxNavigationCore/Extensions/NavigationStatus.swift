@@ -10,7 +10,12 @@ extension NavigationStatus {
 
         let name = roadNames.first { $0.shield == nil } ?? nonLocalizedRoadName
         let shield = localizedShield(locale: locale).map(RoadShield.init)
-        return .init(text: name.text, language: name.language, shield: shield)
+        var text = name.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        while text.last == "/" {
+            text.removeLast()
+            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return .init(text: text, language: name.language, shield: shield)
     }
 
     private var nonLocalizedRoadName: MapboxNavigationNative_Private.RoadName {

@@ -31,6 +31,7 @@ open class WayNameLabel: StylableLabel {
         representation: VisualInstruction.Component.ImageRepresentation? = nil,
         idiom: UIUserInterfaceIdiom = .phone
     ) {
+        let roadName = trimmingTrailingSlash(from: roadName)
         // When the imageRepresentation of road shield changes, update the sprite repository and the label.
         if representation != self.representation {
             spriteRepository.updateRepresentation(for: representation, idiom: idiom) { [weak self] _ in
@@ -40,6 +41,15 @@ open class WayNameLabel: StylableLabel {
             }
         }
         setup(with: roadName, idiom: idiom)
+    }
+
+    private func trimmingTrailingSlash(from roadName: String) -> String {
+        var text = roadName.trimmingCharacters(in: .whitespacesAndNewlines)
+        while text.last == "/" {
+            text.removeLast()
+            text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return text
     }
 
     /// Set up the ``WayNameLabel`` with the road name. Try to use the Mapbox designed shield image first, if failed,

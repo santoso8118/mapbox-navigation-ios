@@ -996,7 +996,7 @@ extension CarPlayManager: CPMapTemplateDelegate {
 
     public func mapTemplate(_ mapTemplate: CPMapTemplate, didEndPanGestureWithVelocity velocity: CGPoint) {
         // After panning is stopped - allow navigation bar dismissal.
-        mapTemplate.automaticallyHidesNavigationBar = true
+        mapTemplate.automaticallyHidesNavigationBar = false
         delegate?.carPlayManager(self, didEndPanGesture: mapTemplate)
     }
 
